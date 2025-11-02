@@ -1,14 +1,9 @@
 #!/bin/bash
 
-#TODO
-#2 Make enemy disappear; Set limits on bullets; 
-#3 Make enemy move from left to right and go down and then go from right to left do this until it hits the enemy or killed;
-#5 Make enemy to shoot; If starship is hit, decrease remaining lives;
-#6 When no lives left, print GAME OVER!; When no enemies left, spawn them again at the top.
-
 
 # set variables and necessary stuff
 ascii_art=(" " "_" "_" "_" "_" "_" " " "_" " " " " " " " " " " " " " " " " " " " " "_" " " "_" " " " " " " "_" "_" "_" "_" "_" " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " "_" " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " "/" " " " " "_" "_" "_" "|" " " "|" " " " " " " " " " " " " " " " " "|" " " "|" " " "|" " " "|" "_" " " " " " " "_" "|" " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " "|" " " "|" " " " " " " " " " " " " " " " " " " " " " " " " " " " " "\\" " " "\`" "-" "-" "." "|" " " "|" "_" "_" " " " " " " "_" "_" "_" "|" " " "|" " " "|" " " " " " " "|" " " "|" " " "_" " " "_" "_" "_" "_" " " " " " " "_" "_" "_" "_" " " "_" " " " " "_" "_" "|" " " "|" " " "_" "_" "_" " " "_" " " "_" "_" " " "_" "_" "_" " " " " "\`" "-" "-" "." " " "\\" " " "'" "_" " " "\\" " " "/" " " "_" " " "\\" " " "|" " " "|" " " " " " " "|" " " "|" "|" " " "'" "_" " " "\\" " " "\\" " " "/" " " "/" " " "_" "\`" " " "|" "/" " " "_" "\`" " " "|" "/" " " "_" " " "\\" " " "'" "_" "_" "/" " " "_" "_" "|" "/" "\\" "_" "_" "/" " " "/" " " "|" " " "|" " " "|" " " " " "_" "_" "/" " " "|" " " "|" " " " " "_" "|" " " "|" "|" " " "|" " " "|" " " "\\" " " "V" " " "/" " " "(" "_" "|" " " "|" " " "(" "_" "|" " " "|" " " " " "_" "_" "/" " " "|" " " " " "\\" "_" "_" " " "\\" "\\" "_" "_" "_" "_" "/" "|" "_" "|" " " "|" "_" "|" "\\" "_" "_" "_" "|" "_" "|" "_" "|" " " " " "\\" "_" "_" "_" "/" "_" "|" " " "|" "_" "|" "\\" "_" "/" " " "\\" "_" "_" "," "_" "|" "\\" "_" "_" "," "_" "|" "\\" "_" "_" "_" "|" "_" "|" " " " " "|" "_" "_" "_" "/")
+ascii_art2=(" " "_" "_" "_" "_" "_" " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " "_" "_" "_" "_" "_" " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " "|" " " " " "_" "_" " " "\\" " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " "|" " " " " "_" " " " " "|" " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " "|" " " "|" " " " " "\\" "/" " " "_" "_" " " "_" " " "_" " " "_" "_" " " "_" "_" "_" " " " " " " "_" "_" "_" " " " " "|" " " "|" " " "|" " " "|" "_" " " " " " " "_" "_" "_" "_" "_" " " "_" " " "_" "_" " " "|" " " "|" " " "_" "_" " " "/" " " "_" "\`" " " "|" " " "'" "_" " " "\`" " " "_" " " "\\" " " "/" " " "_" " " "\\" " " "|" " " "|" " " "|" " " "\\" " " "\\" " " "/" " " "/" " " "_" " " "\\" " " "'" "_" "_" "|" "|" " " "|" "_" "\\" " " "\\" " " "(" "_" "|" " " "|" " " "|" " " "|" " " "|" " " "|" " " "|" " " " " "_" "_" "/" " " "\\" " " "\\" "_" "/" " " "/" "\\" " " "V" " " "/" " " " " "_" "_" "/" " " "|" " " " " " " " " "\\" "_" "_" "_" "_" "/" "\\" "_" "_" "," "_" "|" "_" "|" " " "|" "_" "|" " " "|" "_" "|" "\\" "_" "_" "_" "|" " " " " "\\" "_" "_" "_" "/" " " " " "\\" "_" "/" " " "\\" "_" "_" "_" "|" "_" "|" " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " " ")
 
 start_string=('p' 'r' 'e' 's' 's' ' ' 'S' ' ' 't' 'o' ' ' '[' 'S' 'T' 'A' 'R' 'T' ']')
 ending_string=('p' 'r' 'e' 's' 's' ' ' 'F' ' ' 't' 'o' ' ' '[' 'F' 'I' 'N' 'I' 'S' 'H' ']')
@@ -17,11 +12,12 @@ lives_string=('l' 'i' 'v' 'e' 's' ':' ' ') #l=7
 shoot_string=('s' ' ' '-' ' ' 's' 'h' 'o' 'o' 't' ';' ' ' 'f' ' ' '-' ' ' 'f' 'i' 'n' 'i' 's' 'h') #l=9 l=21
 move_string=('j' ' ' '-' ' ' 'm' 'o' 'v' 'e' ' ' 'l' 'e' 'f' 't' ';' ' ' 'l' ' ' '-' ' ' 'm' 'o' 'v' 'e' ' ' 'r' 'i' 'g' 'h' 't') #l=28
 
-lives=3
+lives=1
 enemies_count=15
 score=0
 
 art_char_index=0
+art2_char_index=0
 start_string_index=0
 ending_string_index=0
 score_string_index=0
@@ -30,21 +26,55 @@ shoot_string_index=0
 move_string_index=0
 
 ship_position=32 #3<=sp<=67
-ships_bullet=(0 29 0) #j, i, flag 0/1 is active
+ships_bullet=(0 28 0) #j, i, flag 0/1 is active
 
-enemies_i_position=(14 15 16) #rows
+enemies_i_position=(7 8 9) #rows
 enemies_j_position=(3 6 9 12 15) #colmns
-are_enemies_alive=(1 1 1 1 1) # 1 - alive; 0 - dead
-hit_leve=2
+are_enemies_alive=(1 1 1 1 1 1 1 1 1 1 1 1 1 1 1) # 1 - alive; 0 - dead; first 5 top row, second 5 middle row, last 5 bottom
+#are_enemies_alive=(30 30 30 30 30) # 30 - alive bottom, 20 - alive middle, 10 - alive top, 0 - no enemies in column
+# hit_level=2
 enemies_i_position_index=0
 enemies_j_position_index=0
+enemies_alive_index=0
 
 are_going_right=true
 are_going_left=false
 
 score_length=0
 
+game_over=false
+
+draw_game_over_screen() {
+    tput clear
+# rest values 
+    art2_char_index=0
+
+    # rows
+    for i in {1..36}; do
+
+        # columns
+        for j in {1..69}; do
+
+            # top and bottom border of screen
+            if [ $i -eq 1 ] || [ $i -eq 36 ]; then
+                echo -n "*"
+            elif [ $j -eq 1 ] || [ $j -eq 69 ]; then
+                echo -n "*"
+            # ascii art game over
+            elif [ $i -ge 15 ] && [ $i -le 20 ] && [ $j -ge 11 ] && [ $j -le 61 ]; then
+                echo -n "${ascii_art2[$art2_char_index]}"
+                ((art2_char_index++))
+            else
+                echo -n " "
+            fi
+        done
+        echo ""
+    done
+    sleep 4
+}
+
 draw_home_screen() {
+    tput clear
     # rest values 
     art_char_index=0
     start_string_index=0
@@ -82,7 +112,8 @@ draw_home_screen() {
 
 game() {
 # reset necessary variables before game loop
-lives=3
+lives=1
+enemies_count=15
 score=0
 
 art_char_index=0
@@ -94,19 +125,22 @@ shoot_string_index=0
 move_string_index=0
 
 ship_position=32 #3<=sp<=67
-ships_bullet=(0 29 0) #j, i, flag 0/1 is active
+ships_bullet=(0 28 0) #j, i, flag 0/1 is active
 
-enemies_i_position=(14 15 16) #rows
+enemies_i_position=(7 8 9) #rows
 enemies_j_position=(3 6 9 12 15) #colmns
-are_enemies_alive=(1 1 1 1 1) # 1 - alive; 0 - dead
-hit_level=2
+are_enemies_alive=(1 1 1 1 1 1 1 1 1 1 1 1 1 1 1) # 1 - alive; 0 - dead; first 5 top row, second 5 middle row, last 5 bottom
+# are_enemies_alive=(1 1 1 1 1) # 1 - alive; 0 - dead
+# hit_level=2
 enemies_i_position_index=0
 enemies_j_position_index=0
+enemies_alive_index=0
 
 are_going_right=true
 are_going_left=false
 
 score_length=0
+game_over=false
 
 # game loop
     while true; do
@@ -169,16 +203,24 @@ score_length=0
                     echo -n "${move_string[$move_string_index]}"
                     ((move_string_index++))
                 # draw character
-                elif [ $i -eq 30 ] && [ $j -eq $ship_position ]; then
+                elif [ $i -eq 29 ] && [ $j -eq $ship_position ]; then
                     echo -n "A"
                 # draw enemies
-                elif [ $i -eq ${enemies_i_position[$enemies_i_position_index]} ] && [ $j -eq ${enemies_j_position[$enemies_j_position_index]} ] && [ ${are_enemies_alive[$enemies_j_position_index]} -eq 1 ]; then
-                    echo -n "W"
+                elif [ $i -eq ${enemies_i_position[$enemies_i_position_index]} ] && [ $j -eq ${enemies_j_position[$enemies_j_position_index]} ]; then
+                    if [ ${are_enemies_alive[$enemies_alive_index]} -eq 1 ]; then
+                        echo -n "W"
+                    else
+                        echo -n " "
+                    fi
+                    #
                     if [ $enemies_j_position_index -eq 4 ] && [ $enemies_i_position_index -lt 2 ]; then
                         ((enemies_i_position_index++))
                     fi
                     if [ $enemies_j_position_index -lt 4 ]; then
                         ((enemies_j_position_index++))
+                    fi
+                    if [ $enemies_alive_index -lt 14 ]; then
+                        ((enemies_alive_index++))
                     fi
                 # draw bullet
                 elif [ ${ships_bullet[2]} -eq 1 ] && [ $i -eq ${ships_bullet[1]} ] && [ $j -eq ${ships_bullet[0]} ]; then
@@ -193,48 +235,103 @@ score_length=0
         echo ""
         done
         # bullet collision with enemies
-        if [ ${ships_bullet[1]} -eq ${enemies_i_position[$hit_leve]} ]; then
-            for ejpindx in {0..4}; do
-                if [ ${ships_bullet[0]} -eq ${enemies_j_position[$ejpindx]} ] && [ ${are_enemies_alive[$ejpindx]} -eq 1 ]; then
-                    ships_bullet[0]=0
-                    ships_bullet[1]=29
-                    ships_bullet[2]=0
-                    are_enemies_alive[$ejpindx]=0
-                    ((score+=10))
-                    if [ $score -gt 999 ]; then
-                        score=999
-                    fi
+        for hit_level in {2..0}; do
+            local increment=0
+            local is_hit=false
+            if [ ${ships_bullet[1]} -eq ${enemies_i_position[$hit_level]} ]; then
+                if [ $hit_level -eq 2 ]; then
+                    increment=10
+                elif [ $hit_level -eq 1 ]; then
+                    increment=5
                 fi
-            done
+                    
+                for ejpindx in {0..4}; do
+                    local eai=$(($ejpindx+$increment))
+                    if [ ${ships_bullet[0]} -eq ${enemies_j_position[$ejpindx]} ] && [ ${are_enemies_alive[$eai]} -eq 1 ]; then
+                        ships_bullet[0]=0
+                        ships_bullet[1]=29
+                        ships_bullet[2]=0
+                        are_enemies_alive[$eai]=0
+                        is_hit=true
+                        ((enemies_count-=1))
+                        ((score+=10))
+                        if [ $score -gt 999 ]; then
+                            score=999
+                        fi
+                        break
+                    fi
+                done
+                if $is_hit; then
+                    break
+                fi
+            fi
+        done
         # bullet collision with top border of game field
-        elif [ ${ships_bullet[1]} -le 6 ]; then
+        if [ ${ships_bullet[1]} -le 6 ]; then
             ships_bullet[0]=0
             ships_bullet[1]=29
             ships_bullet[2]=0
         fi
+        # all enemies death
+        if [ $enemies_count -eq 0 ]; then
+            ((score+=100))
+            enemies_count=15
+            enemies_i_position=(7 8 9) #rows
+            enemies_j_position=(3 6 9 12 15) #colmns
+            are_enemies_alive=(1 1 1 1 1 1 1 1 1 1 1 1 1 1 1)
+            enemies_i_position_index=0
+            enemies_j_position_index=0
+            enemies_alive_index=0
+
+            are_going_right=true
+            are_going_left=false
+        fi
+        # enemies collision with the spaceship
+        if [ ${enemies_i_position[2]} -ge 29 ]; then
+            for eali in {0..14}; do
+                if [ ${are_enemies_alive[$eali]} -eq 1 ]; then
+                    if [ $eali -ge 10 ]; then
+                        if [ ${enemies_i_position[2]} -eq 29 ]; then
+                            game_over=true
+                            break
+                        fi
+                    elif [ $eali -ge 5 ]; then
+                        if [ ${enemies_i_position[1]} -eq 29 ]; then
+                            game_over=true
+                            break
+                        fi
+                    else
+                        if [ ${enemies_i_position[0]} -eq 29 ]; then
+                            game_over=true
+                            break
+                        fi
+                    fi
+                fi
+            done
+        fi
         # make enemies move left
+        local movement_speed=1
+        if [ ${enemies_i_position[2]} -ge 12 ]; then
+            movement_speed=2
+        fi
         if $are_going_left; then
-            ((enemies_j_position[0]--))
-            ((enemies_j_position[1]--))
-            ((enemies_j_position[2]--))
-            ((enemies_j_position[3]--))
-            ((enemies_j_position[4]--))
+            for jp in {0..4}; do
+            ((enemies_j_position[$jp]-=$movement_speed))
+            done
         # make enemies move right
         elif $are_going_right; then
-            ((enemies_j_position[0]++))
-            ((enemies_j_position[1]++))
-            ((enemies_j_position[2]++))
-            ((enemies_j_position[3]++))
-            ((enemies_j_position[4]++))
+            for jp in {0..4}; do
+            ((enemies_j_position[$jp]+=$movement_speed))
+            done
         fi
         # make enemies move down when hit right or left border
-        if [ ${enemies_j_position[4]} -eq 67 ]; then
+        if [ ${enemies_j_position[4]} -ge 67 ]; then
             ((enemies_i_position[0]++))
             ((enemies_i_position[1]++))
             ((enemies_i_position[2]++))
             are_going_right=false
             are_going_left=true
-        elif [ ${enemies_j_position[0]} -eq 3 ]; then
+        elif [ ${enemies_j_position[0]} -le 3 ]; then
             ((enemies_i_position[0]++))
             ((enemies_i_position[1]++))
             ((enemies_i_position[2]++))
@@ -247,11 +344,16 @@ score_length=0
         fi
 
         enemies_i_position_index=0
+        enemies_alive_index=0
 
+        if $game_over; then
+            draw_game_over_screen
+            break
+        fi
         # read input
         read -n 1 -s -t 1 action
         # validate input
-        if [[ "$action" == "s" ]] || [[ "$action" == "S" ]]; then
+        if [[ "$action" == "s" ]] || [[ "$action" == "S" ]] && [ ${ships_bullet[2]} -eq 0 ]; then
             ships_bullet[0]=$ship_position
             ships_bullet[2]=1
         elif [[ "$action" == "j" ]] || [[ "$action" == "J" ]]; then
@@ -274,8 +376,8 @@ score_length=0
 main() {
     # set font color green
     tput setaf 2
+    tput clear
     while true; do
-        tput clear
         draw_home_screen
         read -n 1 -s key
         if [[ "$key" == "s" ]] || [[ "$key" == "S" ]]; then
