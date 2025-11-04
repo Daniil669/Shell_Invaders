@@ -1,65 +1,87 @@
-# Shell Invader
+# 🐚 Shell Invaders
 
-A **Bash-powered** remake of the legendary *Space Invaders* — right in your terminal!  
-This project combines **classic arcade nostalgia** with the **power of Bash scripting** to create a fun and educational experience.
-
----
-
-## verview
-
-**Shell Invader** is a text-based clone of *Space Invaders* implemented purely in **Bash**.  
-It’s both a **learning project** and a **creative twist** — made to explore scripting logic, input handling, and terminal graphics.
-
-> I built this to improve my Bash scripting skills to improve workflow automation on Linux — learning through gaming!
+A **Bash-powered** remake of the classic *Space Invaders* — now playable **directly in your terminal**!  
+This project blends retro arcade vibes with the simplicity of shell scripting.
 
 ---
 
-## Why Bash?
+## 📸 Screenshots
 
-I wanted to get comfortable with Bash for:
-- Automating development tasks 
-- Simplifying project setup and deployment
-- Improving overall Linux workflow 
-
-So what better way to learn than by making a **retro-style game** in the terminal?
+| Game Over | Menu | Gameplay |
+|:--:|:--:|:--:|
+| ![Menu](./screenshots/shell_invaders_1.png) | ![Gameplay](./screenshots/shell_invaders_2.png) | ![Game Over](./screenshots/shell_invaders_3.png) |
 
 ---
 
-## Features
+## 🚀 Overview
 
-- Player movement (left/right controls)
-- Shooting projectiles (spacebar)
-- Enemies descending over time
-- Collision and scoring system
-- Minimal graphics drawn using terminal characters
-- Simple restart mechanism
+**Shell Invaders** is a text-based *Space Invaders* clone written entirely in **Bash**.  
+It’s a fun and educational project that explores real-time input, game loops, and terminal animation — all using shell scripting.
+
+> I built this to level up my Bash scripting and workflow automation skills.
 
 ---
 
+## 🎮 Gameplay
+
+Move your ship, shoot down invaders, and survive as long as possible.  
+The game runs entirely in the shell window — no extra dependencies, no GUI, just pure Bash.
 
 ### Controls
 
 | Key | Action |
 |-----|--------|
-| ← / → | Move ship |
-| Space | Shoot |
-| q | Quit |
+| `j` | Move left |
+| `l` | Move right |
+| `s` | Shoot |
+| `f` | Finish (quit) |
 
 ---
 
-## Learning Goals
+## ⚙️ Setup
 
-- Practice **loops**, **conditions**, and **functions** in Bash  
-- Handle **real-time input** using `read -n`  
-- Use **ANSI escape codes** for cursor control  
-- Understand **terminal screen refresh** and timing logic  
+To simplify launching the game, use the provided `setup.sh` script.
+
+### Options
+
+| Option | Description |
+|--------|--------------|
+| `--alias` | Adds an alias in your `.bashrc` so you can run the game from anywhere |
+| `--link` | Creates a system-wide soft link (requires **sudo**) |
+| `--uninstall` | Removes the alias or link previously installed |
+| `--help`, `-h` | Displays usage instructions |
+
+### Example
+
+```bash
+# Clone the repository
+git clone https://github.com/Daniil669/Shell_Invaders.git
+
+# Navigate to the project directory
+cd Shell_Invaders
+
+# Install with alias (recommended)
+bash setup.sh --alias
+
+# OR install with sudo link
+sudo bash setup.sh --link
+
+# Uninstall when needed
+bash setup.sh --uninstall
+```
+
+After installation, you can start the game from any directory using:
+```bash
+shellinvaders
+```
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - **Bash (>= 5.0)**  
-- Works on **Linux** and **macOS** terminals
-- No F****** Windows
+- Compatible with **Linux** and **macOS**
+- No support for Windows (use WSL)
 
 ---
+
