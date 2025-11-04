@@ -390,7 +390,7 @@ new_level() {
 
 read_input() {
 # read input
-    read -n 1 -s -t 0.9 action
+    read -n 1 -s -t 0.7 action
 
     # validate input
     if [[ "$action" == "s" ]] || [[ "$action" == "S" ]] && [ ${ships_bullet[2]} -eq 0 ]; then
