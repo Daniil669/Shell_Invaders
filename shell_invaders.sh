@@ -122,7 +122,6 @@ draw_game_over_screen() {
         done
         echo ""
     done
-    sleep 4
 }
 
 
