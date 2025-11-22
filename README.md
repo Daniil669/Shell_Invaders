@@ -7,7 +7,7 @@ This project blends retro arcade vibes with the simplicity of shell scripting.
 
 ## 📸 Screenshots
 
-| Game Over | Menu | Gameplay |
+| Menu | Gameplay | Game Over |
 |:--:|:--:|:--:|
 | ![Menu](./screenshots/shell_invaders_1.png) | ![Gameplay](./screenshots/shell_invaders_2.png) | ![Game Over](./screenshots/shell_invaders_3.png) |
 
